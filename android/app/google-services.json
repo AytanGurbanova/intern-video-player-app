@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "414101556690",
+    "project_id": "intern-video-app-e5836",
+    "storage_bucket": "intern-video-app-e5836.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414101556690:android:be7646abd1da8d3b078c0b",
+        "android_client_info": {
+          "package_name": "com.example.intern_video_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbrkHVevBSqtBCvY5nbfEHJARmZrtJgaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
