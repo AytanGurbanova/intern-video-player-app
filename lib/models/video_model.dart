@@ -1,11 +1,8 @@
-// Model for video data (used for both Firestore and Storage)
-// Written by: Aytan (Intern)
-
 class VideoModel {
   final String id;
   final String title;
-  final String? storagePath; // e.g. videos/sample1.mp4
-  final String? videoUrl; // optional: full download URL
+  final String? storagePath;
+  final String? videoUrl;
   final String? thumbnailPath;
   final String? thumbnailUrl;
 
@@ -18,7 +15,7 @@ class VideoModel {
     this.thumbnailUrl,
   });
 
-  // Factory to create from Firestore document
+  // Create VideoModel from Firestore data
   factory VideoModel.fromFirestore(String id, Map<String, dynamic> data) {
     return VideoModel(
       id: id,

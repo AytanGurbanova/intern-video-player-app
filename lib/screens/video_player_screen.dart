@@ -1,6 +1,3 @@
-// Plays a selected video using Chewie and video_player
-// Written by: Aytan (Intern)
-
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
@@ -26,7 +23,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize video player
     _videoController = VideoPlayerController.network(widget.videoUrl)
       ..initialize()
           .then((_) {
@@ -44,7 +40,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             setState(() {
               _loading = false;
             });
-            // handle error (show message)
           });
   }
 
@@ -59,11 +54,25 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body: _loading
-          ? Center(child: SpinKitCircle(size: 48.0, color: Colors.blue))
-          : _chewieController != null
-          ? Chewie(controller: _chewieController!)
-          : const Center(child: Text('Failed to load video')),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFE3F2FD), Color(0xFFB3E0FF), Color(0xFFF6FBFF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: _loading
+              ? const SpinKitCircle(size: 48.0, color: Color(0xFF1565C0))
+              : _chewieController != null
+              ? Chewie(controller: _chewieController!)
+              : const Text(
+                  'Failed to load video',
+                  style: TextStyle(color: Color(0xFF1565C0)),
+                ),
+        ),
+      ),
     );
   }
 }

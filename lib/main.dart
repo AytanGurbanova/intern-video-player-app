@@ -1,23 +1,18 @@
-// Main entry point for the app. Handles Firebase init and routing.
-// Written by: Aytan (Intern, 3rd year software student)
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/video_list_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-// This is needed to make sure Firebase is ready before app starts
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
-// Main app widget, sets up theme and routes
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -26,7 +21,37 @@ class MyApp extends StatelessWidget {
       title: 'Intern Video App',
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.blue, // I like blue :)
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color(0xFFB3E0FF),
+          brightness: Brightness.light,
+        ),
+        scaffoldBackgroundColor: const Color(0xFFF6FBFF),
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFE3F2FD),
+          foregroundColor: Color(0xFF1565C0),
+          elevation: 0,
+          centerTitle: true,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF81D4FA),
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            textStyle: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
+          ),
+          labelStyle: const TextStyle(color: Color(0xFF1565C0)),
+        ),
       ),
       routes: {
         '/login': (_) => const LoginScreen(),
@@ -39,7 +64,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Checks if user is logged in or not and shows the right screen
+// This widget checks if user is logged in or not
 class EntryPoint extends StatelessWidget {
   const EntryPoint({super.key});
   @override
@@ -47,18 +72,15 @@ class EntryPoint extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        // Show loading while checking auth state
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
-        // If user is not logged in, show login
         final user = snapshot.data;
         if (user == null) {
           return const LoginScreen();
         } else {
-          // If logged in, go to video list
           return const VideoListScreen();
         }
       },
