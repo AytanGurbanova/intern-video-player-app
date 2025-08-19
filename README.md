@@ -124,9 +124,3 @@ flutter run
 - Make sure your Firestore and Storage have some videos and thumbnails uploaded, and the `videos` collection is populated.
 - The app is designed for demonstration and learning purposes.
 - UI is intentionally simple and clean, with comments written as an intern would write.
-
----
-
-## License
-
-MIT (or your
